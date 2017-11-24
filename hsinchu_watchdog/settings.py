@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '59)r(_lqj#%dam+q9e!$m=5i33ge$^7od7c%+of2u(33c8+a7!'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['hsinchu-whatchdog.herokuapp.com']
 

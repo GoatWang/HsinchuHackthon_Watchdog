@@ -1,1 +1,1 @@
-web: gunicorn hsinchu_watchdog.wsgi --log-file -
+web: gunicorn hsinchu_watchdog.wsgi
