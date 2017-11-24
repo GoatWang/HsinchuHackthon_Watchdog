@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <title>unit GeoLocation</title>
+    <style>
+      #map {
+        height: 400px;
+        width: 100%;
+       }
+    </style>
+  </head>
+  <body>
+    <h3>My Google Maps Demo</h3>
+    <h4>{{ location.address }}</h4>
+    <div id="map"></div>
+    <script>
+      function initMap() {
+        var uluru = {lat: 24.8068, lng: 120.96};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 16,
+          center: uluru
+        });
+        geocoder = new google.maps.Geocoder();
+        codeAddress(geocoder, map);
+      }
+
+      function codeAddress(geocoder, map) {
+        geocoder.geocode({'address': "新竹市北區經國路1段442巷25號"}, function(results, status) {
+          if (status === 'OK') {
+            map.setCenter(results[0].geometry.location);
+            var marker = new google.maps.Marker({
+              map: map,
+              position: results[0].geometry.location
+            });
+          } else {
+            alert('Geocode was not successful for the following reason: ' + status);
+          }
+        });
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCbGmKgPGMJ3hq6GG-j7WwtiNSVGIDRATc&callback=initMap">
+    </script>
+  </body>
+</html>

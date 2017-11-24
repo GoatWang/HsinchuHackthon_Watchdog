@@ -1,0 +1,380 @@
+<!DOCTYPE html> {% load static %}
+
+<html>
+
+<head>
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+  <meta charset="utf-8">
+  <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
+
+  <title>新竹機能地圖</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" type="text/css" href="{% static 'roadmap/content/slidebars.css' %}" />
+  <style>
+    /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+    html, body{
+      height:100%;
+    }
+
+    #map {
+      height: 90%;
+      width: 95%;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 10px;
+    }
+
+    /* Optional: Makes the sample page fill the window. */
+
+    .row {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    #table {
+      width: 93%;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 20px;   
+    }
+
+    .cat {
+      color:white;
+      font-size:15px;
+      height:60px;
+      padding-top: 10px;
+    }
+
+    .dataset {
+      color:white;
+      font-size:14px;
+      height:35px;
+      padding-top: 7px;
+    }
+
+    #slidbartitle {
+      margin-left:5px;
+      margin-top:15px;
+      height: 50px;
+    }
+
+    #areaDiv {
+      margin: 20px;
+      margin-left:30px;
+    }
+
+
+  </style>
+  <script>
+
+    /* $(document).ready(function () {
+        
+      $(".cat").click(function(event){
+        console.log($(this).next())
+        $(this).next().toggle( 'Blind', {}, 500 );
+        $(this).next().slideToggle( "slow", function() {
+          // Animation complete.
+        });
+      })
+
+    }) */
+
+  </script>
+</head>
+
+
+
+
+
+
+<body>
+
+  <div canvas="container">
+    <nav class="navbar navbar-dark bg-dark">
+      <button class="navbar-toggler toggle-id-1" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span> Menu
+      </button>
+      <a class="navbar-brand" href="#"><img width=50px src="{% static 'roadmap/images/bamboo.png' %}"> 新竹機能地圖 -- {{ dataset }}</a>
+    <span class="navbar-brand mb-0 h1"></span>
+    </nav>
+
+    <div id="areaDiv">
+        <button id="EastArea" type="button" class="btn btn-primary">東區</button>
+        <button id="NorthArea" type="button" class="btn btn-info">北區</button>
+        <button id="FragrantHillArea" type="button" class="btn btn-success">香山區</button>
+    </div>
+
+
+
+    <div id="map"></div>
+
+
+    <div class="row">
+      <div id="table">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">分類</th>
+              <th scope="col">資料來源</th>
+              <th scope="col">資料名稱</th>
+              <th scope="col">聯絡地址</th>
+              <th scope="col">連絡電話</th>
+              <th scope="col">備註</th>
+
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in rows %}
+            <tr id='tr{{ forloop.counter }}'>
+              <td style="vertical-align:middle;">{{ forloop.counter }}</td>
+              <td style="min-width:65px;vertical-align:middle;">{{ row.category }}</td>
+              <td style="min-width:125px;vertical-align:middle;">{{ row.dataset }}</td>
+              <td style="vertical-align:middle;"><a href="https://www.google.ca/maps/place/{{ row.name }}">{{ row.name }}</a></td>
+              <td style="vertical-align:middle;"><a href="https://www.google.ca/maps/place/{{ row.address }}">{{ row.address }}</a></td>
+              <td style="white-space: pre-line;vertical-align:middle;">{{ row.phone }}</td>
+              <td style="white-space: pre-line;max-width:300px;min-width:300px;vertical-align:middle;">{{ row.note | safe }}</td>
+
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+  <div off-canvas="id-1 left reveal">
+    <h3 id="slidbartitle"><img width=50px src="{% static 'roadmap/images/bamboo.png' %}"> 新竹機能地圖</h3>
+    <button id='food' class="dropdown-item cat"><img width=20 src="{% static 'roadmap/images/cutlery.svg' %}">&nbsp;&nbsp;&nbsp;&nbsp;美食
+      &nbsp;&nbsp;&nbsp;<img width=20 src="{% static 'roadmap/images/down-arrow.svg' %}"></button>
+    
+    <div class="dataset_div" hidden="hidden">
+      <a class="dropdown-item dataset" href="/roadmap/index/得獎美食">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;得獎美食</a>
+      <a class="dropdown-item dataset" href="/roadmap/index/健康餐盒">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;健康餐盒</a>
+    </div>
+    
+    <button id='baby' class="dropdown-item cat"><img width=20 src="{% static 'roadmap/images/crawling-baby-silhouette.svg' %}">&nbsp;&nbsp;&nbsp;&nbsp;育兒
+      &nbsp;&nbsp;&nbsp;<img width=20 src="{% static 'roadmap/images/down-arrow.svg' %}"></button>
+    <div class="dataset_div" hidden="hidden">
+      <a class="dropdown-item dataset" href="/roadmap/index/哺乳室">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;哺乳室</a>
+      <a class="dropdown-item dataset" href="/roadmap/index/育兒園">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;育兒園</a>
+    </div>
+
+
+    <button id='travel' class="dropdown-item cat"><img width=20 src="{% static 'roadmap/images/air-transport.svg' %}">&nbsp;&nbsp;&nbsp;&nbsp;觀光
+      &nbsp;&nbsp;&nbsp;<img width=20 src="{% static 'roadmap/images/down-arrow.svg' %}"></button>
+    <div class="dataset_div" hidden="hidden">
+      <a class="dropdown-item dataset" href="/roadmap/index/博物館">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;博物館</a>
+      <a class="dropdown-item dataset" href="/roadmap/index/歷史建築">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;歷史建築</a>
+      <a class="dropdown-item dataset" href="/roadmap/index/古蹟">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;古蹟</a>
+      <a class="dropdown-item dataset" href="/roadmap/index/攤販市集">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;攤販市集</a>
+      <a class="dropdown-item dataset" href="/roadmap/index/玻璃工藝">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;玻璃工藝</a>
+    </div>
+
+
+    <button id='oldcare' class="dropdown-item cat"><img width=20 src="{% static 'roadmap/images/old-man-with-hat-walking-with-cane.svg' %}">&nbsp;&nbsp;&nbsp;&nbsp;養老
+      &nbsp;&nbsp;&nbsp;<img width=20 src="{% static 'roadmap/images/down-arrow.svg' %}"></button>
+      <div class="dataset_div" hidden="hidden">
+          <a class="dropdown-item dataset" href="/roadmap/index/老人福利機構">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;老人福利機構</a>
+        </div>
+
+
+    <button id='medical' class="dropdown-item cat"><img width=20 src="{% static 'roadmap/images/first-aid-kit.svg' %}">&nbsp;&nbsp;&nbsp;&nbsp;醫療
+      &nbsp;&nbsp;&nbsp;<img width=20 src="{% static 'roadmap/images/down-arrow.svg' %}"></button>
+      <div class="dataset_div" hidden="hidden">
+          <a class="dropdown-item dataset" href="/roadmap/index/西醫">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;西醫</a>
+          <a class="dropdown-item dataset" href="/roadmap/index/牙醫">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;牙醫</a>
+          <a class="dropdown-item dataset" href="/roadmap/index/中醫">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;中醫</a>
+          <a class="dropdown-item dataset" href="/roadmap/index/戒菸醫院">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;戒菸醫院</a>
+          <a class="dropdown-item dataset" href="/roadmap/index/動物醫院">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;動物醫院</a>
+        </div>
+
+
+    <button id='learning' class="dropdown-item cat"><img width=20 src="{% static 'roadmap/images/open-book.svg' %}">&nbsp;&nbsp;&nbsp;&nbsp;學習
+      &nbsp;&nbsp;&nbsp;<img width=20 src="{% static 'roadmap/images/down-arrow.svg' %}"></button>
+      <div class="dataset_div" hidden="hidden">
+          <a class="dropdown-item dataset" href="/roadmap/index/圖書館">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;圖書館</a>
+          <a class="dropdown-item dataset" href="/roadmap/index/終身學習">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;終身學習</a>
+        </div>
+
+
+    <button id='telecom' class="dropdown-item cat"><img width=20 src="{% static 'roadmap/images/wifi.svg' %}">&nbsp;&nbsp;&nbsp;&nbsp;通訊
+      &nbsp;&nbsp;&nbsp;<img width=20 src="{% static 'roadmap/images/down-arrow.svg' %}"></button>
+      <div class="dataset_div" hidden="hidden">
+          <a class="dropdown-item dataset" href="/roadmap/index/熱點">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;熱點</a>
+        </div>
+
+
+  </div>
+
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+    crossorigin="anonymous"></script>
+  <script>      
+    function initMap() {
+      var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 14,
+        center: { lat: 24.8068, lng: 120.96 }
+      });
+
+      // Create an array of alphabetical characters used to label the markers.
+      var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      var titles = {{ titles | safe }};
+
+    // Add some markers to the map.
+    // Note: The code uses the JavaScript Array.prototype.map() method to
+    // create an array of markers based on a given "locations" array.
+    // The map() method here has nothing to do with the Google Maps API.
+    var markers = locations.map(function (location, i) {
+      return new google.maps.Marker({
+        position: location,
+        //label: labels[i % labels.length],
+        label: (i + 1).toString(),
+        title: (i + 1).toString() + ". " + titles[i % labels.length],
+        animation: google.maps.Animation.DROP
+      });
+    });
+
+    for (i = 0; i < markers.length; i++) {
+      markers[i].addListener('click', function () {
+        targetselector = '#tr'+this.label;
+        target = $(targetselector)
+        location.href = targetselector;
+
+        target.css('background', 'rgb(255, 191, 191)')
+      });
+
+      $('#EastArea').click(function(){
+        map.setCenter({lat: 24.79, lng: 120.99})
+        //map.setZoom(16)
+      })
+
+      $('#NorthArea').click(function(){
+        map.setCenter({lat: 24.82, lng: 120.94})
+        //map.setZoom(16)
+      })
+
+      $('#FragrantHillArea').click(function(){
+        map.setCenter({lat: 24.77, lng: 120.93})
+        //map.setZoom(16)
+      })
+    }
+
+    // Add a marker clusterer to manage the markers.
+    var markerCluster = new MarkerClusterer(map, markers,
+      { imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m' });
+      }
+    var locations = {{ locations| safe }}
+
+  </script>
+  <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
+  </script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCbGmKgPGMJ3hq6GG-j7WwtiNSVGIDRATc&callback=initMap">
+  </script>
+
+
+  <script src="{% static 'roadmap/scripts/slidebars.js' %}"></script>
+  <script>
+    $(document).ready(function () {
+      var controller = new slidebars();
+      controller.init();
+      (function ($) {
+        // Initialize Slidebars
+        var controller = new slidebars();
+        controller.init();
+      })(jQuery);
+      $('.toggle-id-1').on('click', function (event) {
+        // Stop default action and bubbling
+        event.stopPropagation();
+        event.preventDefault();
+
+        // Toggle the Slidebar with id 'id-1'
+        controller.toggle('id-1');
+      });
+
+
+      current_dataset = '{{ dataset }}'
+
+
+
+      $(".cat").mouseover(function() {
+          $(this).css('color', 'red')
+          $(this).css('background', 'rgba(90, 91, 91, 0.5)')
+          $(this).css( 'cursor', 'pointer' );
+      });
+
+      $(".cat").mouseleave(function() {
+        $(this).css('color', 'white')
+        $(this).css('background', 'black')
+      });
+
+
+      $(".cat").click(function(){
+        if($(this).next().attr('hidden') == 'hidden'){
+          $(this).next().removeAttr('hidden');
+        }
+        else{
+          $(this).next().attr('hidden','hedden');
+        }
+      })
+
+      
+
+      $(".dataset").mouseover(function() {
+        $(this).css( 'cursor', 'default' );
+        if (! $(this).text().includes('{{ dataset }}')){
+          $(this).css('color', 'rgb(255, 193, 127)')
+          $(this).css('background', 'rgba(90, 91, 91, 0.5)')
+          $(this).css( 'cursor', 'pointer' );
+        }
+        else{
+          $(this).addClass("disabled")
+        }
+    });
+
+      $(".dataset").mouseleave(function() {
+        $(this).css( 'cursor', 'default' );
+        if (! $(this).text().includes('{{ dataset }}')){
+        $(this).css('color', 'white')
+        $(this).css('background', 'black')
+      }});
+
+      
+      $(".dataset").click(function(event){
+        event.preventDefault()
+        targeturl = $(this).attr('href')
+        window.location.href = targeturl
+      })
+
+    
+
+       $('tbody tr').mouseover(function() {
+         $(this).attr('style','background:rgb(255, 221, 191);')
+       });
+    
+       $('tbody tr').mouseleave(function() {
+         $(this).attr('style', '')
+       });
+
+      $('td a').click(function(event ){
+        event.preventDefault()
+        targeturl = $(this).attr('href')
+        window.open(targeturl)
+      })
+
+
+
+    });
+  </script>
+
+
+</body>
+
+</html>
