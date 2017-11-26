@@ -54,6 +54,13 @@
       padding-top: 7px;
     }
 
+    #chat {
+      color:white;
+      font-size:15px;
+      height:60px;
+      padding-top: 10px;
+    }
+
     #slidbartitle {
       margin-left:5px;
       margin-top:15px;
@@ -96,7 +103,7 @@
       <button class="navbar-toggler toggle-id-1" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span> Menu
       </button>
-      <a class="navbar-brand" href="#"><img width=50px src="{% static 'roadmap/images/bamboo.png' %}"> 社會處機能地圖 -- {{ dataset }}</a>
+      <a class="navbar-brand" href="#"><img width=50px src="{% static 'roadmap/images/bamboo.png' %}"> 機能地圖 -- {{ dataset }}</a>
     <span class="navbar-brand mb-0 h1"></span>
     </nav>
 
@@ -208,9 +215,9 @@
 
 
     <div class="dropdown-divider"></div>
-    <button id='chat' class="dropdown-item"><img width=20 src="{% static 'roadmap/images/comments.svg' %}">&nbsp;&nbsp;&nbsp;&nbsp;聯絡我們</button>
-    <img src="{% static 'roadmap/images/qrcode.png' %}">
-
+    <img width=130px style='margin-top:15px' src="{% static 'roadmap/images/line.png' %}">
+    <br>
+    <img width=140px style='margin-left:50px;margin-top:15px' src="{% static 'roadmap/images/qrcode.png' %}">
 
   </div>
 
@@ -357,7 +364,6 @@
         targeturl = $(this).attr('href')
         window.location.href = targeturl
       })
-
     
 
        $('tbody tr').mouseover(function() {

@@ -25,7 +25,7 @@ SECRET_KEY = '59)r(_lqj#%dam+q9e!$m=5i33ge$^7od7c%+of2u(33c8+a7!'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['hsinchu-whatchdog.herokuapp.com']
+ALLOWED_HOSTS = ['hsinchu-whatchdog.herokuapp.com', '127.0.0.1']
 
 
 # Application definition
@@ -124,6 +124,7 @@ USE_TZ = True
 
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
+
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
