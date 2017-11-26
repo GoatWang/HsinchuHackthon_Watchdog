@@ -7,7 +7,7 @@
   <meta charset="utf-8">
   <link rel="shortcut icon" type="image/png" href="{% static 'roadmap/images/favicon.ico' %}"/>
 
-  <title>新竹機能地圖</title>
+  <title>新竹市社會處</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <link rel="stylesheet" type="text/css" href="{% static 'roadmap/content/slidebars.css' %}" />
@@ -96,7 +96,7 @@
       <button class="navbar-toggler toggle-id-1" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span> Menu
       </button>
-      <a class="navbar-brand" href="#"><img width=50px src="{% static 'roadmap/images/bamboo.png' %}"> 新竹機能地圖 -- {{ dataset }}</a>
+      <a class="navbar-brand" href="#"><img width=50px src="{% static 'roadmap/images/bamboo.png' %}"> 社會處機能地圖 -- {{ dataset }}</a>
     <span class="navbar-brand mb-0 h1"></span>
     </nav>
 
@@ -146,14 +146,14 @@
 
   </div>
   <div off-canvas="id-1 left reveal">
-    <h3 id="slidbartitle"><img width=50px src="{% static 'roadmap/images/bamboo.png' %}"> 新竹機能地圖</h3>
-    <button id='food' class="dropdown-item cat"><img width=20 src="{% static 'roadmap/images/cutlery.svg' %}">&nbsp;&nbsp;&nbsp;&nbsp;美食
+    <h3 id="slidbartitle"><img width=50px src="{% static 'roadmap/images/bamboo.png' %}"> 新竹市社會處</h3>
+    <!-- <button id='food' class="dropdown-item cat"><img width=20 src="{% static 'roadmap/images/cutlery.svg' %}">&nbsp;&nbsp;&nbsp;&nbsp;美食
       &nbsp;&nbsp;&nbsp;<img width=20 src="{% static 'roadmap/images/down-arrow.svg' %}"></button>
     
     <div class="dataset_div" hidden="hidden">
       <a class="dropdown-item dataset" href="/roadmap/index/得獎美食">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;得獎美食</a>
       <a class="dropdown-item dataset" href="/roadmap/index/健康餐盒">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;健康餐盒</a>
-    </div>
+    </div> -->
     
     <button id='baby' class="dropdown-item cat"><img width=20 src="{% static 'roadmap/images/crawling-baby-silhouette.svg' %}">&nbsp;&nbsp;&nbsp;&nbsp;育兒
       &nbsp;&nbsp;&nbsp;<img width=20 src="{% static 'roadmap/images/down-arrow.svg' %}"></button>
@@ -163,7 +163,7 @@
     </div>
 
 
-    <button id='travel' class="dropdown-item cat"><img width=20 src="{% static 'roadmap/images/air-transport.svg' %}">&nbsp;&nbsp;&nbsp;&nbsp;觀光
+    <!-- <button id='travel' class="dropdown-item cat"><img width=20 src="{% static 'roadmap/images/air-transport.svg' %}">&nbsp;&nbsp;&nbsp;&nbsp;觀光
       &nbsp;&nbsp;&nbsp;<img width=20 src="{% static 'roadmap/images/down-arrow.svg' %}"></button>
     <div class="dataset_div" hidden="hidden">
       <a class="dropdown-item dataset" href="/roadmap/index/博物館">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;博物館</a>
@@ -171,7 +171,7 @@
       <a class="dropdown-item dataset" href="/roadmap/index/古蹟">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;古蹟</a>
       <a class="dropdown-item dataset" href="/roadmap/index/攤販市集">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;攤販市集</a>
       <a class="dropdown-item dataset" href="/roadmap/index/玻璃工藝">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;玻璃工藝</a>
-    </div>
+    </div> -->
 
 
     <button id='oldcare' class="dropdown-item cat"><img width=20 src="{% static 'roadmap/images/old-man-with-hat-walking-with-cane.svg' %}">&nbsp;&nbsp;&nbsp;&nbsp;養老
@@ -200,11 +200,16 @@
         </div>
 
 
-    <button id='telecom' class="dropdown-item cat"><img width=20 src="{% static 'roadmap/images/wifi.svg' %}">&nbsp;&nbsp;&nbsp;&nbsp;通訊
+    <!-- <button id='telecom' class="dropdown-item cat"><img width=20 src="{% static 'roadmap/images/wifi.svg' %}">&nbsp;&nbsp;&nbsp;&nbsp;通訊
       &nbsp;&nbsp;&nbsp;<img width=20 src="{% static 'roadmap/images/down-arrow.svg' %}"></button>
       <div class="dataset_div" hidden="hidden">
           <a class="dropdown-item dataset" href="/roadmap/index/熱點">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;熱點</a>
-        </div>
+        </div> -->
+
+
+    <div class="dropdown-divider"></div>
+    <button id='chat' class="dropdown-item"><img width=20 src="{% static 'roadmap/images/comments.svg' %}">&nbsp;&nbsp;&nbsp;&nbsp;聯絡我們</button>
+    <img src="{% static 'roadmap/images/qrcode.png' %}">
 
 
   </div>
