@@ -1,9 +1,11 @@
 from pymongo import MongoClient
 from datetime import datetime
 import pandas as pd
+from os import environ
+
 class LocationDB():
     def __init__(self):
-        conn = MongoClient("mongodb://hsinchu_watchdog:a1234567@ds131900.mlab.com:31900/hsinchu_watchdog")
+        conn = MongoClient(environ.get("WATCHDOG_MONGOURL"))
         db = conn.hsinchu_watchdog
         self.collection = db.roadmap
 
